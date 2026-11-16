@@ -1,0 +1,6 @@
+{
+  "name": "Yummy Tummy — Zimbabwean Snacks & Artisanal Nut Butters",
+  "description": "Discover Yummy Tummy crispy snacks, flavoured naks, nut butters, caramelised nuts, and granola treats crafted in Zimbabwe. Shop online or partner for wholesale distribution.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
