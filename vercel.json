@@ -3,10 +3,6 @@
     {
       "src": "src/api/*",
       "use": "@vercel/node"
-    },
-    {
-      "src": "index.html",
-      "use": "@vercel/serve"
     }
   ],
   "routes": [
@@ -16,7 +12,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "index.html"
+      "dest": "/index.html"
     }
   ]
 }
