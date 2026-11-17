@@ -1,34 +1,41 @@
-import React from 'react';
-import { StoreProvider, useStore } from './context/StoreContext';
+import React, { useState, useEffect } from 'react';
+import { useStore } from './context/StoreContext';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { CartDrawer } from './components/CartDrawer';
 import { QuickViewModal } from './components/QuickViewModal';
-import { Preloader } from './components/Preloader';
 import { HomePage } from './pages/HomePage';
 import { ShopPage } from './pages/ShopPage';
-import { OurStoryPage } from './pages/OurStoryPage';
-import { CheckoutPage } from './pages/CheckoutPage';
 import { ContactWholesalePage } from './pages/ContactWholesalePage';
 import { LegalPage } from './pages/LegalPage';
 import { AdminPage } from './pages/AdminPage';
+import { ArrowRight, MessageCircle } from 'lucide-react';
+import { MEDIA_ASSETS } from './lib/mediaAssets';
+import { ProductCard } from './components/ProductCard';
+import { ProductImage } from './components/ProductImage';
+
+const routePages = {
+  '': HomePage,
+  '/': HomePage,
+  '/our-story': () => import('./pages/OurStoryPage').then(mod => mod.OurStoryPage),
+  '/shop': () => import('./pages/ShopPage').then(mod => mod.ShopPage),
+  '/our-products': () => import('./pages/ShopPage').then(mod => mod.ShopPage),
+  '/crispy-snacks': () => import('./pages/ShopPage').then(mod => mod.ShopPage),
+  '/nut-butters': () => import('./pages/ShopPage').then(mod => mod.ShopPage),
+  '/checkout': () => import('./pages/CheckoutPage').then(mod => mod.CheckoutPage),
+  '/contact': () => import('./pages/ContactWholesalePage').then(mod => mod.ContactWholesalePage),
+  '/privacy': () => import('./pages/LegalPage').then(mod => mod.LegalPage),
+  '/terms': () => import('./pages/LegalPage').then(mod => mod.LegalPage),
+  '/shipping': () => import('./pages/LegalPage').then(mod => mod.LegalPage),
+  '/admin': () => import('./pages/AdminPage').then(mod => mod.AdminPage),
+};
 
 function AppRoutes() {
-  const { route, toastMessage } = useStore();
-
+  const { route, toastMessage, storefront, setStorefront, loadingStorefront } = useStore();
+  
   const renderPage = () => {
-    if (route === '/' || route === '') return <HomePage />;
-    if (route === '/our-story') return <OurStoryPage />;
-    if (route === '/shop' || route === '/our-products') return <ShopPage initialCategory="all" />;
-    if (route === '/crispy-snacks') return <ShopPage initialCategory="crispy-snacks" />;
-    if (route === '/nut-butters') return <ShopPage initialCategory="nut-butters" />;
-    if (route === '/checkout') return <CheckoutPage />;
-    if (route === '/contact') return <ContactWholesalePage />;
-    if (route === '/privacy') return <LegalPage type="privacy" />;
-    if (route === '/terms') return <LegalPage type="terms" />;
-    if (route === '/shipping') return <LegalPage type="shipping" />;
-    if (route === '/admin') return <AdminPage />;
-    return <HomePage />;
+    const Component = routePages[route] || HomePage;
+    return <Component />;
   };
 
   return (

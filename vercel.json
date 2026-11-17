@@ -1,0 +1,27 @@
+{
+  "builds": [
+    {
+      "src": "src/api/*",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "index.html",
+      "use": "@vercel/serve"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/src/api/$1"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "index.html"
+    }
+  ],
+  "functions": {
+    "src/api/*": {
+      "runtime": "nodejs20.x"
+    }
+  }
+}
