@@ -18,10 +18,5 @@
       "src": "/(.*)",
       "dest": "index.html"
     }
-  ],
-  "functions": {
-    "src/api/*": {
-      "runtime": "nodejs20.x"
-    }
-  }
+  ]
 }
